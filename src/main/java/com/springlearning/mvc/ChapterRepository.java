@@ -2,5 +2,5 @@ package com.springlearning.mvc;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface SkillRepository extends CrudRepository<Skill, Long> {
+public interface ChapterRepository extends CrudRepository<Chapter, Long> {
 }

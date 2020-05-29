@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>WolfPubDB</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <center>
+        <h1>Publication</h1>
+        Name: <b th:text="${publication.title}" /><br/>
+        Typical topics: <span th:text="${publication.typicalTopics}" /><br/>
+        Type: <span th:text="${publication.type}" /><br/>
+        Periodicity: <span th:text="${publication.periodicity}" /><br/>
+    </center>
+</body>
+</html>

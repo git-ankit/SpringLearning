@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>WolfPubDB</title>
+</head>
+<body>
+<center>
+    <h1>Publications</h1>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Typical Topics</th>
+            <th>Type</th>
+            <th>Periodicity</th>
+        </tr>
+        <tr th:each="publication : ${publications}">
+            <td th:text="${publication.title}"></td>
+            <td th:text="${publication.typicalTopics}"></td>
+            <td th:text="${publication.type}"></td>
+            <td th:text="${publication.periodicity}"></td>
+            <td>
+                <a th:href="@{/Admin/EditingAndPublishing/Publication/{id}(id=${publication.id})}">view</a>
+            </td>
+        </tr>
+    </table>
+    <hr/>
+    <div><a href="/Admin/EditingAndPublishing/NewPublication">Want to publish a new publication?</a> </div>
+</center>
+
+</body>
+</html>
