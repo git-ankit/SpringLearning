@@ -23,4 +23,4 @@ Look at this image.
 Note: Not everything attribute over here is in the code that is implemented.
 This is more of an ER diagram.
 
-![ER diagram]()
+![ER diagram](https://github.com/git-ankit/SpringLearning/blob/master/JPA%20implementation%20of%20DBMS%20project%20-%20ER.png)
