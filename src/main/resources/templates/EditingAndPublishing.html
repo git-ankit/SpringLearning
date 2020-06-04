@@ -20,12 +20,15 @@
             <td th:text="${publication.type}"></td>
             <td th:text="${publication.periodicity}"></td>
             <td>
-                <a th:href="@{/Admin/EditingAndPublishing/Publication/{id}(id=${publication.id})}">view</a>
+                <a th:href="@{/Admin/EditingAndPublishing/Publication/{id}(id=${publication.id})}">View</a>
+            </td>
+            <td>
+                <a th:href="@{/Admin/EditingAndPublishing/UpdatePublication/{id}(id=${publication.id})}">Edit</a>
             </td>
         </tr>
     </table>
     <hr/>
-    <div><a href="/Admin/EditingAndPublishing/NewPublication">Want to publish a new publication?</a> </div>
+    <div><a href="/Admin/EditingAndPublishing/NewPublication/">Want to publish a new publication?</a> </div>
 </center>
 
 </body>

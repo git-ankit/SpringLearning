@@ -100,4 +100,8 @@ public class Contributor {
     public List<Publication> getWorksFor() {
         return worksFor;
     }
+
+    public void setWorksFor(List<Publication> worksFor) {
+        this.worksFor = worksFor;
+    }
 }

@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Optional;
+
 
 @Controller
 public class MvcController {
@@ -56,7 +58,7 @@ public class MvcController {
         return "Reports";
     }
 
-    @RequestMapping(value = "/Admin/EditingAndPublishing/NewPublication", method = RequestMethod.GET)
+    @RequestMapping(value = "/Admin/EditingAndPublishing/NewPublication/", method = RequestMethod.GET)
     public String newPublication(){
         return "NewPublication";
     }
@@ -76,4 +78,35 @@ public class MvcController {
 
     }
 
+    @RequestMapping(value = "/Admin/EditingAndPublishing/UpdatePublication/{id}", method = RequestMethod.GET)
+    public String updatePublication(@PathVariable long id, Model model){
+        Optional<Publication> publication = publicationRepository.findById(id);
+        if (publication.isPresent() == false){
+            return "Error";
+        } else{
+            model.addAttribute("publication", publication.get());
+            return "UpdatePublication";
+        }
+    }
+
+    @RequestMapping(value = "/Admin/EditingAndPublishing/UpdatePublication", method = RequestMethod.POST)
+    public String updatePublication(@RequestParam long id, @RequestParam String title,@RequestParam String typicalTopics,@RequestParam String type,@RequestParam String periodicity){
+        Optional<Publication> publication = publicationRepository.findById(id);
+        if (publication.isPresent() == false){
+            return "Error";
+        } else{
+            publication.get().setTitle(title);
+            publication.get().setPeriodicity(periodicity);
+            publication.get().setType(type);
+            publication.get().setTypicalTopics(typicalTopics);
+            publicationRepository.save(publication.get());
+            return "redirect:/Admin/EditingAndPublishing/Publication/"+publication.get().getId();
+        }
+    }
+
+    @RequestMapping(value = "/Admin/EditingAndPublishing/EditorsOfPublication/Editors")
+    public String showEditors(Model model){
+        model.addAttribute("editors", contributorRepository.findAll());
+        return "Editors";
+    }
 }

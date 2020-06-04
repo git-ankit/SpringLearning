@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Table(name="\"Order\"")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

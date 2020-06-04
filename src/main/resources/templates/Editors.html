@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>WolfPubDB</title>
+</head>
+<body>
+<center>
+    <h1>Contributors</h1>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Designation</th>
+            <th>Publications</th>
+        </tr>
+        <tr th:each="editor : ${editors}">
+            <td th:text="${editor.name}"></td>
+            <td th:text="${editor.designation}"></td>
+            <td>
+				<span th:each="publication,iterStat : ${editor.worksFor}">
+					<span th:text="${publication.getTitle()}"/><th:block th:if="${!iterStat.last}">,</th:block>
+				</span>
+            </td>
+<!--            <td>-->
+<!--                <a th:href="@{/developer/{id}(id=${developer.id})}">view</a>-->
+<!--            </td>-->
+        </tr>
+    </table>
+    <hr/>
+</center>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>WolfPubDB</title>
+</head>
+<body>
+<div class="row">
+    <div class="col-lg-6 col-md-7 col-sm-6">
+        <h1>Add a developer</h1>
+
+        <form th:action="@{/Admin/EditingAndPublishing/UpdatePublication}" method="post" enctype="multipart/form-data" class="form-horizontal">
+            <fieldset>
+                <div class="form-group">
+                    <div class="col-lg-9">
+                        <input type="text" class="form-control" name="id" th:value="${publication.id}" hidden/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Title</label>
+                    <div class="col-lg-9">
+                        <input type="text" class="form-control" name="title" th:value="${publication.title}"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Typical Topics</label>
+                    <div class="col-lg-9">
+                        <input type="text" class="form-control" name="typicalTopics" th:value="${publication.typicalTopics}"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Type</label>
+                    <div class="col-lg-9">
+                        <input type="text" class="form-control" name="type" th:value="${publication.type}"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Periodicity</label>
+                    <div class="col-lg-9">
+                        <input type="text" class="form-control" name="periodicity" th:value="${publication.periodicity}"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-12 col-lg-offset-3">
+                        <button type="submit" class="btn btn-primary" name="button">Update</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+</body>
+</html>
