@@ -20,7 +20,7 @@ Credits to: [Dr. Rada Chirkova](https://www.csc.ncsu.edu/people/rychirko).
 **What are the Entities?**
 
 Look at this image.
-Note: Not everything attribute over here is in the code that is implemented.
+Note: Not every attribute over here is in the code that is implemented.
 This is more of an ER diagram.
 
 ![ER diagram](https://github.com/git-ankit/SpringLearning/blob/master/JPA%20implementation%20of%20DBMS%20project%20-%20ER.png)
