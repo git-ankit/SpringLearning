@@ -1,7 +1,11 @@
 package com.springlearning.mvc;
 
 
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.stereotype.Service;
+
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.util.Collection;
 
 @Entity
@@ -76,4 +80,6 @@ public class Publication {
     public void setContributors(Collection<Contributor> contributors) {
         this.contributors = contributors;
     }
+
+
 }

@@ -1,13 +1,20 @@
 package com.springlearning.mvc;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.transaction.Transaction;
+import javax.transaction.Transactional;
 import java.util.Optional;
+import java.util.OptionalInt;
 
 
 @Controller
@@ -108,5 +115,17 @@ public class MvcController {
     public String showEditors(Model model){
         model.addAttribute("editors", contributorRepository.findAll());
         return "Editors";
+    }
+
+    @RequestMapping(value = "/Admin/EditingAndPublishing/Publication/DeletingEditorsFromPublication/", method = RequestMethod.POST)
+    public String deletingEditorsFromPublication(@RequestParam long publicationId, @RequestParam long editorId){
+
+        Optional<Contributor> updatedEditor = contributorRepository.findById(editorId);
+        if (updatedEditor.get().deleteAPublication(publicationRepository.findById(publicationId).get())){
+            contributorRepository.save(updatedEditor.get());
+            return "redirect:/Admin/EditingAndPublishing/Publication/"+publicationId;
+        } else {
+            return "Error";
+        }
     }
 }

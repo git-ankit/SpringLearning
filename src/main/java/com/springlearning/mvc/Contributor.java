@@ -104,4 +104,13 @@ public class Contributor {
     public void setWorksFor(List<Publication> worksFor) {
         this.worksFor = worksFor;
     }
+
+    public Boolean deleteAPublication(Publication publication){
+
+        if (worksFor.contains(publication)){
+            worksFor.remove(publication);
+            return true;
+        }
+        return false;
+    }
 }

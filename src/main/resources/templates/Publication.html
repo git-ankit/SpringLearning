@@ -11,6 +11,24 @@
         Typical topics: <span th:text="${publication.typicalTopics}" /><br/>
         Type: <span th:text="${publication.type}" /><br/>
         Periodicity: <span th:text="${publication.periodicity}" /><br/>
+        Editors<br/>
+        <span th:each="editor,iterStat : ${publication.contributors}">
+            <form method="post" th:action="@{/Admin/EditingAndPublishing/Publication/DeletingEditorsFromPublication/}">
+                <span th:text="${editor.name}"/>
+                <input type="hidden" name="publicationId" th:value="${publication.id}"/>
+                <input type="hidden" name="editorId" th:value="${editor.id}"/>
+                <button type="submit">Delete</button>
+            </form>
+        </span>
+        <form method="post" th:action="@{/Admin/EditingAndPublishing/Publication/DeletingEditorsFromPublication/}">
+            <span th:text="${editor.name}"/>
+            <input type="hidden" name="publicationId" th:value="${publication.id}"/>
+            <input type="hidden" name="editorId" th:value="${editor.id}"/>
+            <button type="submit">Delete</button>
+        </form>
+
+        Want to add an editor over here? Select from one below:
+
     </center>
 </body>
 </html>
