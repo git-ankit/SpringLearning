@@ -6,9 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.nio.channels.Pipe;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 @SpringBootApplication
 public class MvcApplication implements CommandLineRunner {
@@ -17,6 +15,9 @@ public class MvcApplication implements CommandLineRunner {
 
     @Autowired
     ContributorRepository contributorRepository;
+
+    @Autowired
+    BookRepository bookRepository;
 
 
     public static void main(String[] args) {
@@ -62,6 +63,33 @@ public class MvcApplication implements CommandLineRunner {
         contributors.get(1).setWorksFor(publications.subList(1,2));
 
         contributorRepository.saveAll(contributors);
+
+        List<Book> books = new LinkedList<>();
+
+        Calendar dateOfCreation1 = Calendar.getInstance();
+        Calendar dateOfPublication1 = Calendar.getInstance();
+        Calendar dateOfCreation2 = Calendar.getInstance();
+        Calendar dateOfPublication2 = Calendar.getInstance();
+
+        dateOfCreation1.set(2002,Calendar.DECEMBER,01);
+        dateOfPublication1.set(2003, Calendar.FEBRUARY,28);
+        books.add(new Book("9780807286005",  dateOfCreation1, dateOfPublication1, 1, publications.get(0), contributors.subList(0,1)));
+
+        dateOfCreation2.set(2003,Calendar.JANUARY, 31);
+        dateOfPublication2.set(2004, Calendar.JANUARY, 01);
+        books.add(new Book("9780439554930", dateOfCreation2, dateOfPublication2, 2, publications.get(0), contributors.subList(0,1)));
+
+        //Code where i was trying to add issues to books. stupid me
+//        dateOfCreation.set(2019,12,31);
+//        dateOfPublication.set(2020, 1,1);
+//        books.add(new Book(dateOfCreation, dateOfPublication, 145, publications.get(1), contributors.subList(1,3)));
+//
+//        dateOfCreation.set(2020,1,31);
+//        dateOfPublication.set(2020, 2,1);
+//        books.add(new Book(dateOfCreation, dateOfPublication, 146, publications.get(1), contributors.subList(1,3)));
+
+        bookRepository.saveAll(books);
+
 
 
 

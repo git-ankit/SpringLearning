@@ -2,10 +2,8 @@ package com.springlearning.mvc;
 
 import org.hibernate.resource.transaction.spi.DdlTransactionIsolator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 public class Distributor {
@@ -95,5 +93,16 @@ public class Distributor {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    @OneToMany(mappedBy = "distributor")
+    private Collection<Order> order;
+
+    public Collection<Order> getOrder() {
+        return order;
+    }
+
+    public void setOrder(Collection<Order> order) {
+        this.order = order;
     }
 }

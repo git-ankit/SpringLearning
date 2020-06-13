@@ -1,7 +1,8 @@
 package com.springlearning.mvc;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.util.Calendar;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -9,34 +10,36 @@ public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
     private String isbn;
-    private Date dateOfCreation;
-    private Date dateOfPublication;
+    private Calendar dateOfCreation;
+    private Calendar dateOfPublication;
     private int editionNo;
     @ManyToOne
-    private Publication publicationId;
+    private Publication publication;
 
     @ManyToMany
     private List<Contributor> authors;
 
     public Book(){super();}
 
-    public Book(String isbn, Date dateOfCreation, Date dateOfPublication, int editionNo, Publication publicationId, List<Contributor> authors){
+    public Book(String isbn, Calendar dateOfCreation, Calendar dateOfPublication, int editionNo, Publication publication, List<Contributor> authors){
         super();
         this.isbn = isbn;
         this.dateOfCreation = dateOfCreation;
         this.dateOfPublication = dateOfPublication;
         this.editionNo = editionNo;
-        this.publicationId = publicationId;
+        this.publication = publication;
         this.authors = authors;
     }
 
-    public Book(Date dateOfCreation, Date dateOfPublication, int editionNo, Publication publicationId){
+    public Book(String isbn, Calendar dateOfCreation, Calendar dateOfPublication, int editionNo, Publication publication){
         super();
+        this.isbn = isbn;
         this.dateOfCreation = dateOfCreation;
         this.dateOfPublication = dateOfPublication;
         this.editionNo = editionNo;
-        this.publicationId = publicationId;
+        this.publication = publication;
     }
 
     public String getIsbn() {
@@ -47,19 +50,19 @@ public class Book {
         this.isbn = isbn;
     }
 
-    public Date getDateOfCreation() {
+    public Calendar getDateOfCreation() {
         return dateOfCreation;
     }
 
-    public void setDateOfCreation(Date date_of_creation) {
+    public void setDateOfCreation(Calendar date_of_creation) {
         this.dateOfCreation = date_of_creation;
     }
 
-    public Date getDateOfPublication() {
+    public Calendar getDateOfPublication() {
         return dateOfPublication;
     }
 
-    public void setDateOfPublication(Date date_of_publication) {
+    public void setDateOfPublication(Calendar date_of_publication) {
         this.dateOfPublication = date_of_publication;
     }
 
@@ -71,12 +74,12 @@ public class Book {
         this.editionNo = edition_no;
     }
 
-    public Publication getPublicationId() {
-        return publicationId;
+    public Publication getPublication() {
+        return publication;
     }
 
-    public void setPublicationId(Publication publication_id) {
-        this.publicationId = publication_id;
+    public void setPublication(Publication publication) {
+        this.publication= publication;
     }
 
     public List<Contributor> getAuthors() {
@@ -85,5 +88,35 @@ public class Book {
 
     public void setAuthors(List<Contributor> authors) {
         this.authors = authors;
+    }
+
+    @OneToMany(mappedBy = "isbn")
+    private Collection<Chapter> chapter;
+
+    public Collection<Chapter> getChapter() {
+        return chapter;
+    }
+
+    public void setChapter(Collection<Chapter> chapter) {
+        this.chapter = chapter;
+    }
+
+    @OneToMany(mappedBy = "book")
+    private Collection<Order> order;
+
+    public Collection<Order> getOrder() {
+        return order;
+    }
+
+    public void setOrder(Collection<Order> order) {
+        this.order = order;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

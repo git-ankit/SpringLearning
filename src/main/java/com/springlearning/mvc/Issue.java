@@ -3,7 +3,6 @@ package com.springlearning.mvc;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 public class Issue {
@@ -13,15 +12,15 @@ public class Issue {
     private Date dateOfIssue;
 
     @ManyToOne
-    private Publication publicationId;
+    private Publication publication;
 
 
     public Issue() {super();}
 
-    public Issue(Date dateOfIssue, Publication publicationId) {
+    public Issue(Date dateOfIssue, Publication publication) {
         super();
         this.dateOfIssue = dateOfIssue;
-        this.publicationId = publicationId;
+        this.publication = publication;
     }
 
     public long getId() {
@@ -40,12 +39,12 @@ public class Issue {
         this.dateOfIssue = dateOfIssue;
     }
 
-    public Publication getPublicationId() {
-        return publicationId;
+    public Publication getPublication() {
+        return publication;
     }
 
-    public void setPublicationId(Publication publicationId) {
-        this.publicationId = publicationId;
+    public void setPublication(Publication publicationId) {
+        this.publication = publicationId;
     }
 
     @ManyToMany(mappedBy = "issues")
@@ -57,5 +56,16 @@ public class Issue {
 
     public void setArticles(Collection<Article> articles) {
         this.articles = articles;
+    }
+
+    @OneToMany(mappedBy = "issue")
+    private Collection<Order> order;
+
+    public Collection<Order> getOrder() {
+        return order;
+    }
+
+    public void setOrder(Collection<Order> order) {
+        this.order = order;
     }
 }

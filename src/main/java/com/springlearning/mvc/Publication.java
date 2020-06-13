@@ -1,11 +1,7 @@
 package com.springlearning.mvc;
 
 
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.stereotype.Service;
-
 import javax.persistence.*;
-import javax.transaction.Transactional;
 import java.util.Collection;
 
 @Entity
@@ -82,4 +78,25 @@ public class Publication {
     }
 
 
+    @OneToMany(mappedBy = "publication")
+    private Collection<Book> book;
+
+    public Collection<Book> getBook() {
+        return book;
+    }
+
+    public void setBook(Collection<Book> book) {
+        this.book = book;
+    }
+
+    @OneToMany(mappedBy = "publication")
+    private Collection<Issue> issue;
+
+    public Collection<Issue> getIssue() {
+        return issue;
+    }
+
+    public void setIssue(Collection<Issue> issue) {
+        this.issue = issue;
+    }
 }

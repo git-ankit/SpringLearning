@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>WolfPubDB</title>
+</head>
+<body>
+<center>
+    <h1>Books</h1>
+    <table>
+        <tr>
+            <th>ISBN</th>
+            <th>Publication</th>
+            <th>Edition</th>
+            <th>Date of creation</th>
+            <th>Date of publication</th>
+        </tr>
+        <tr th:each="book : ${books}">
+            <td th:text="${book.isbn}"></td>
+            <td th:text="${book.publication.title}"</td>
+            <td th:text="${book.editionNo}"></td>
+            <td th:text="${book.dateOfCreation.getTime()}"></td>
+            <td th:text="${book.dateOfPublication.getTime()}"></td>
+            <td>
+                <a th:href="@{/Admin/EditingAndPublishing/Publication/{id}(id=${book.publication.id})}">Click for publication details</a>
+            </td>
+            <td>
+                <a th:href="@{/Admin/BookOrIssue/UpdateBook/{id}(id=${book.id})}">Edit</a>
+            </td>
+        </tr>
+    </table>
+    <hr/>
+    <div><a href="/Admin/BookOrIssue/NewBook/">Want to add a new book?</a> </div>
+</center>
+
+</body>
+</html>

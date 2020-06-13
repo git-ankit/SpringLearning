@@ -142,4 +142,10 @@ public class MvcController {
             return "Error";
         }
     }
+
+    @RequestMapping("/Admin/BookOrIssue/Books")
+    public String books(Model model){
+        model.addAttribute("books", bookRepository.findAll());
+        return "Books";
+    }
 }
