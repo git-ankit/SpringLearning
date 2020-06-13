@@ -113,4 +113,12 @@ public class Contributor {
         }
         return false;
     }
+    public Boolean addAPublication(Publication publication){
+
+        if (worksFor.contains(publication) == false){
+            worksFor.add(publication);
+            return true;
+        }
+        return false;
+    }
 }

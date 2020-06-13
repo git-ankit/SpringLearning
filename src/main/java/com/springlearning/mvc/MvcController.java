@@ -1,20 +1,15 @@
 package com.springlearning.mvc;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.transaction.Transaction;
-import javax.transaction.Transactional;
+
+import java.util.List;
 import java.util.Optional;
-import java.util.OptionalInt;
 
 
 @Controller
@@ -72,8 +67,16 @@ public class MvcController {
 
     @RequestMapping(value = "/Admin/EditingAndPublishing/Publication/{id}")
     public String showPublication(@PathVariable long id, Model model){
-
-        model.addAttribute("publication", publicationRepository.findById(id).orElse(new Publication("this", "is", "wrong", "entry")));
+        Optional<Publication> pubInfo= publicationRepository.findById(id);
+        if (pubInfo.isPresent()){
+            model.addAttribute("publication", pubInfo.get());
+            List<Contributor> restOfTheEditors= (List<Contributor>) contributorRepository.findAll();
+            restOfTheEditors.removeAll(pubInfo.get().getContributors());
+            model.addAttribute(model.addAttribute("restOfTheEditors", restOfTheEditors));
+        } else {
+            model.addAttribute("publication", new Publication("this", "is", "wrong", "entry"));
+            model.addAttribute("restOfTheEditors", contributorRepository.findAll()); //must be passed an empty list
+        }
         return "Publication";
     }
 
@@ -122,6 +125,17 @@ public class MvcController {
 
         Optional<Contributor> updatedEditor = contributorRepository.findById(editorId);
         if (updatedEditor.get().deleteAPublication(publicationRepository.findById(publicationId).get())){
+            contributorRepository.save(updatedEditor.get());
+            return "redirect:/Admin/EditingAndPublishing/Publication/"+publicationId;
+        } else {
+            return "Error";
+        }
+    }
+
+    @RequestMapping(value = "/Admin/EditingAndPublishing/Publication/AddingEditorsForPublication/", method = RequestMethod.POST)
+    public String addingEditorsForPublication(@RequestParam long publicationId, @RequestParam long editorId){
+        Optional<Contributor> updatedEditor = contributorRepository.findById(editorId);
+        if (updatedEditor.get().addAPublication(publicationRepository.findById(publicationId).get())){
             contributorRepository.save(updatedEditor.get());
             return "redirect:/Admin/EditingAndPublishing/Publication/"+publicationId;
         } else {

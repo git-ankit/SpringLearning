@@ -20,14 +20,16 @@
                 <button type="submit">Delete</button>
             </form>
         </span>
-        <form method="post" th:action="@{/Admin/EditingAndPublishing/Publication/DeletingEditorsFromPublication/}">
-            <span th:text="${editor.name}"/>
-            <input type="hidden" name="publicationId" th:value="${publication.id}"/>
-            <input type="hidden" name="editorId" th:value="${editor.id}"/>
-            <button type="submit">Delete</button>
+        Want to add an editor over here? Select one from below:<br/>
+        <form method="post" th:action="@{/Admin/EditingAndPublishing/Publication/AddingEditorsForPublication/}">
+            <select name = "editorId">
+                <span th:each="editor, iterstat: ${restOfTheEditors}">
+                    <option th:value="${editor.id}"><span th:text="${editor.name}"/></option>
+                </span>
+                <input type="hidden" name="publicationId" th:value="${publication.id}"/>
+            </select>
+            <button type="submit">Add</button>
         </form>
-
-        Want to add an editor over here? Select from one below:
 
     </center>
 </body>
