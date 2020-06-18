@@ -119,4 +119,22 @@ public class Book {
     public void setId(long id) {
         this.id = id;
     }
+
+    public Boolean addAuthor(Contributor contributor){
+        if (this.authors.contains(contributor)) {
+            return true;
+        } else {
+            return this.authors.add(contributor);
+        }
+    }
+
+    public Boolean removeAuthor(Contributor contributor){
+        if(this.authors.contains(contributor)){
+            return this.authors.remove(contributor);
+        } else {
+            return true;
+        }
+    }
+
+
 }

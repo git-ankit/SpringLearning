@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -147,5 +150,73 @@ public class MvcController {
     public String books(Model model){
         model.addAttribute("books", bookRepository.findAll());
         return "Books";
+    }
+
+    @RequestMapping(value = "/Admin/BookOrIssue/NewBook/", method = RequestMethod.GET)
+    public String newBook(Model model) {
+        model.addAttribute("publications", publicationRepository.findAll());
+        return "NewBook";
+    }
+
+    @RequestMapping(value = "/Admin/BookOrIssue/NewBook/", method = RequestMethod.POST)
+    public String newBook(@RequestParam String isbn, @RequestParam String dateOfCreation, @RequestParam String dateOfPublication, @RequestParam int editionNo, @RequestParam long publicationId){
+        Optional<Publication> pub = publicationRepository.findById(publicationId);
+        if (pub.isPresent()) {
+            Calendar doC = Calendar.getInstance();
+            doC.set(Integer.valueOf(dateOfCreation.substring(0,4)), Integer.valueOf(dateOfCreation.substring(5,7)) + 1, Integer.valueOf(dateOfCreation.substring(8,10)));
+            Calendar doP = Calendar.getInstance();
+            doP.set(Integer.valueOf(dateOfPublication.substring(0,4)), Integer.valueOf(dateOfPublication.substring(5,7)) + 1, Integer.valueOf(dateOfPublication.substring(8,10)));
+            Book newBook = new Book(isbn, doC, doP, editionNo, pub.get());
+            bookRepository.save(newBook);
+            return "redirect:/Admin/BookOrIssue/Books"; //to be changed to view the new created book
+        } else {
+            return "Error";
+        }
+    }
+
+    @RequestMapping(value = "/Admin/BookOrIssue/UpdateBook/{bookId}", method = RequestMethod.GET)
+    public String UpdateBook(@PathVariable long bookId, Model model){
+        Optional<Book> bookToUpdate= bookRepository.findById(bookId);
+        if (bookToUpdate.isPresent()){
+            String isbn = bookToUpdate.get().getIsbn();
+            Calendar doC = bookToUpdate.get().getDateOfCreation();
+            Calendar doP = bookToUpdate.get().getDateOfPublication();
+            int editionNo = bookToUpdate.get().getEditionNo();
+            Publication publication = bookToUpdate.get().getPublication();
+            List<Contributor> authors = bookToUpdate.get().getAuthors();
+            List<Contributor> restOfTheAuthors= (List<Contributor>) contributorRepository.findAll();
+            restOfTheAuthors.removeAll(bookToUpdate.get().getAuthors());
+            model.addAttribute("id", bookToUpdate.get().getId());
+            model.addAttribute("isbn",isbn);
+            model.addAttribute("doC", doC);
+            model.addAttribute("doP", doP);
+            model.addAttribute("editionNo", editionNo);
+            model.addAttribute("publication", publication);
+            model.addAttribute("authors", authors);
+            model.addAttribute(model.addAttribute("restOfTheAuthors", restOfTheAuthors));
+            model.addAttribute("publications", publicationRepository.findAll());
+            return "UpdateBook";
+
+        }else {
+            return "Error";
+        }
+    }
+
+    @RequestMapping(value = "/Admin/BookOrIssue/UpdateBook/", method = RequestMethod.POST)
+    public String UpdateBook(@RequestParam long bookId, @RequestParam String isbn, @RequestParam int editionNo, @RequestParam long publicationId, @RequestParam long authorId){
+        Optional<Book> book = bookRepository.findById(bookId);
+        if (book.isPresent()){
+            if (authorId != 0){
+                book.get().addAuthor(contributorRepository.findById(authorId).get());
+            }
+
+            book.get().setIsbn(isbn);
+            book.get().setEditionNo(editionNo);
+            book.get().setPublication(publicationRepository.findById(publicationId).get());
+            bookRepository.save(book.get());
+            return "redirect:/Admin/BookOrIssue/UpdateBook/"+bookId;
+        } else {
+            return "Error";
+        }
     }
 }

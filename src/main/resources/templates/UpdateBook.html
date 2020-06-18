@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>WolfPubDB</title>
+</head>
+<body>
+<div>
+    <div>
+        <h1>Update a book</h1>
+
+        <form th:action="@{/Admin/BookOrIssue/UpdateBook/}" method="post" enctype="multipart/form-data">
+            <fieldset>
+                <input type="hidden" name="bookId" th:value="${id}"/>
+                <div>
+                    <label>ISBN</label>
+                    <div>
+                        <input type="text" name="isbn" th:value="${isbn}"/>
+                    </div>
+                </div>
+                <div>
+                    <label>Edition number</label>
+                    <div>
+                        <input type="number" name="editionNo" th:value="${editionNo}"/>
+                    </div>
+                </div>
+                <div>
+                    <label>Publication (Current is <span th:text = "${publication.getTitle()}"/>)</label>
+                        <select name = "publicationId">
+                            <option th:each="pubs,iterStat : ${publications}" th:text="${pubs.getTitle()}" th:value="${pubs.getId()}" th:selected = "${publication.id == pubs.id}"></option>
+                        </select>
+                    </d>
+                </div>
+                <div>
+                    <label>The current authors are:</label>
+                    <div>
+                        <span th:each="author, iterstat:${authors}">
+                            <span th:text="${author.getName()}"></span>
+                        </span>
+                    </div>
+                </div>
+                <div>
+                    <label>You can add the following ones too! (Can add only one person at a time)</label>
+                    <div>
+                        <select name = "authorId">
+                            <option value= 0><span text="No one"/></option>
+                            <span th:each="author, iterstat: ${restOfTheAuthors}">
+                                <option th:value="${author.id}"><span th:text="${author.name}"/></option>
+                            </span>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label>All set?</label>
+                    <input type="submit" value="Update this book"/>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+</body>
+</html>

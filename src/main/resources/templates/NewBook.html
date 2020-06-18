@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>WolfPubDB</title>
+</head>
+<body>
+<div>
+    <div>
+        <h1>Add a book</h1>
+
+        <form th:action="@{/Admin/BookOrIssue/NewBook/}" method="post" enctype="multipart/form-data">
+            <fieldset>
+                <div>
+                    <label>ISBN</label>
+                    <div>
+                        <input type="text" name="isbn"/>
+                    </div>
+                </div>
+                <div>
+                    <label>Date of creation</label>
+                    <div>
+                        <input type="date" name="dateOfCreation"/>
+                    </div>
+                </div>
+                <div>
+                    <label>Date of publication</label>
+                    <div>
+                        <input type="date" name="dateOfPublication"/>
+                    </div>
+                </div>
+                <div>
+                    <label>Edition number</label>
+                    <div>
+                        <input type="number" name="editionNo"/>
+                    </div>
+                </div>
+                <div>
+                    <label>Publication</label>
+                    <div>
+                        <select name = "publicationId">
+                            <option th:each="publication,iterStat : ${publications}" th:text="${publication.getTitle()}" th:value="${publication.getId()}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label>All set?</label>
+                    <input type="submit" value="Add this book"/>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+</body>
+</html>
