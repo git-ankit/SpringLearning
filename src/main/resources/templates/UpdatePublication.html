@@ -1,53 +1,67 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>WolfPubDB</title>
-</head>
-<body>
-<div class="row">
-    <div class="col-lg-6 col-md-7 col-sm-6">
-        <h1>Add a developer</h1>
-
-        <form th:action="@{/Admin/EditingAndPublishing/UpdatePublication}" method="post" enctype="multipart/form-data" class="form-horizontal">
-            <fieldset>
-                <div class="form-group">
-                    <div class="col-lg-9">
-                        <input type="text" class="form-control" name="id" th:value="${publication.id}" hidden/>
-                    </div>
+    <head>
+        <meta charset="UTF-8">
+        <title>WolfPubDB</title>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/css/style.css">
+        <link href="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.css" rel="stylesheet">
+    </head>
+    <body class="w3-theme-l4">
+        <div >
+            <!--            start of header-->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="/">
+                    <img src="/images/brick2x2-1.jpg" width="100" height="50" class="d-inline-block" alt=""> WolfPubDB
+                </a>
+            </nav>
+            <!--            end of header-->
+            <div style="padding-left: 10%; padding-right: 10%">
+                <div class="w3-container" style="text-align: center;">
+                    <h1>Update publication</h1>
+                    <h3>Edit whatever you want. Leave rest unchanged.</h3>
                 </div>
-                <div class="form-group">
-                    <label class="col-lg-3 control-label">Title</label>
-                    <div class="col-lg-9">
-                        <input type="text" class="form-control" name="title" th:value="${publication.title}"/>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-lg-3 control-label">Typical Topics</label>
-                    <div class="col-lg-9">
-                        <input type="text" class="form-control" name="typicalTopics" th:value="${publication.typicalTopics}"/>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-lg-3 control-label">Type</label>
-                    <div class="col-lg-9">
-                        <input type="text" class="form-control" name="type" th:value="${publication.type}"/>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-lg-3 control-label">Periodicity</label>
-                    <div class="col-lg-9">
-                        <input type="text" class="form-control" name="periodicity" th:value="${publication.periodicity}"/>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-lg-12 col-lg-offset-3">
-                        <button type="submit" class="btn btn-primary" name="button">Update</button>
-                    </div>
-                </div>
-            </fieldset>
-        </form>
-    </div>
-</div>
-</body>
+                <form th:action="@{/Admin/EditingAndPublishing/UpdatePublication}" method="post" enctype="multipart/form-data" class="w3-container" style="background-color: white">
+                    <fieldset>
+                        <div>
+                            <div>
+                                <input type="text" name="id" th:value="${publication.id}" hidden/>
+                            </div>
+                        </div>
+                        <div>
+                            <label>Title</label>
+                            <div>
+                                <input type="text" name="title" th:value="${publication.title}" class="w3-input w3-border w3-round w3-animate-input" style="width: min-content"/>
+                            </div>
+                        </div>
+                        <div>
+                            <label>Typical Topics</label>
+                            <div>
+                                <input type="text" name="typicalTopics" th:value="${publication.typicalTopics}" class="w3-input w3-border w3-round w3-animate-input" style="width: min-content"/>
+                            </div>
+                        </div>
+                        <div>
+                            <label>Type</label>
+                            <div>
+                                <input type="text" name="type" th:value="${publication.type}" class="w3-input w3-border w3-round w3-animate-input" style="width: min-content"/>
+                            </div>
+                        </div>
+                        <div>
+                            <label>Periodicity</label>
+                            <div>
+                                <input type="text" name="periodicity" th:value="${publication.periodicity}" class="w3-input w3-border w3-round w3-animate-input" style="width: min-content"/>
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <button type="submit" name="button" class="w3-button w3-block w3-section w3-blue w3-ripple w3-padding" style="width: min-content">Update</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </body>
 </html>
