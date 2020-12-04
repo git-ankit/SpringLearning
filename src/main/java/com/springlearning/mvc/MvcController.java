@@ -85,6 +85,10 @@ public class MvcController {
 
     @RequestMapping(value = "/Admin/EditingAndPublishing/NewPublication", method = RequestMethod.POST)
     public String newPublication(@RequestParam String title,@RequestParam String typicalTopics,@RequestParam String type,@RequestParam String periodicity){
+        title = title.strip();
+        if (title == "") {
+            return "Error";
+        }
         Publication pub = new Publication(title, typicalTopics, type, periodicity);
         publicationRepository.save(pub);
         return "redirect:/Admin/EditingAndPublishing/Publication/"+pub.getId();
@@ -108,6 +112,10 @@ public class MvcController {
         if (publication.isPresent() == false){
             return "Error";
         } else{
+            title = title.strip();
+            if (title == "") {
+                return "Error";
+            }
             publication.get().setTitle(title);
             publication.get().setPeriodicity(periodicity);
             publication.get().setType(type);

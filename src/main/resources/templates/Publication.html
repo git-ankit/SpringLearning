@@ -52,15 +52,22 @@
                     <tr>
                         <td>Want to add an editor over here?</td>
                         <td>
-                            <form method="post" th:action="@{/Admin/EditingAndPublishing/Publication/AddingEditorsForPublication/}">
-                                <select name = "editorId" class="w3-select ">
+                            <div th:if="${restOfTheEditors!=null and !restOfTheEditors.isEmpty()}">
+                                <form method="post" th:action="@{/Admin/EditingAndPublishing/Publication/AddingEditorsForPublication/}">
+                                    <select name = "editorId" class="w3-select ">
                                      <span th:each="editor, iterstat: ${restOfTheEditors}">
                                          <option th:value="${editor.id}"><span th:text="${editor.name}"/></option>
                                     </span>
-                                    <input type="hidden" name="publicationId" th:value="${publication.id}"/>
-                                </select>
-                                <button type="submit">Add</button>
-                            </form>
+                                        <input type="hidden" name="publicationId" th:value="${publication.id}"/>
+                                    </select>
+                                    <button type="submit">Add</button>
+                                </form>
+                            </div>
+                            <div th:if="${restOfTheEditors==null or restOfTheEditors.isEmpty()}">
+                                <p>No one left to assign</p>
+                            </div>
+
+
                         </td>
                     </tr>
                 </table>
