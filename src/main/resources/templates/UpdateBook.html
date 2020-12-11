@@ -3,58 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <title>WolfPubDB</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link href="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.css" rel="stylesheet">
 </head>
-<body>
+<body class="w3-theme-l4">
 <div>
-    <div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">
+            <img src="/images/brick2x2-1.jpg" width="100" height="50" class="d-inline-block" alt=""> WolfPubDB
+        </a>
+    </nav>
+    <div style="text-align: center;padding-left: 10%; padding-right: 10%">
         <h1>Update a book</h1>
 
         <form th:action="@{/Admin/BookOrIssue/UpdateBook/}" method="post" enctype="multipart/form-data">
-            <fieldset>
+            <table class="w3-table-all w3-hoverable" >
                 <input type="hidden" name="bookId" th:value="${id}"/>
-                <div>
-                    <label>ISBN</label>
-                    <div>
+                <tr>
+                    <td>ISBN</td>
+                    <td>
                         <input type="text" name="isbn" th:value="${isbn}"/>
-                    </div>
-                </div>
-                <div>
-                    <label>Edition number</label>
-                    <div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Edition number</td>
+                    <td>
                         <input type="number" name="editionNo" th:value="${editionNo}"/>
-                    </div>
-                </div>
-                <div>
-                    <label>Publication (Current is <span th:text = "${publication.getTitle()}"/>)</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Publication (Current is <span th:text = "${publication.getTitle()}"/>)</td>
+                    <td>
                         <select name = "publicationId">
                             <option th:each="pubs,iterStat : ${publications}" th:text="${pubs.getTitle()}" th:value="${pubs.getId()}" th:selected = "${publication.id == pubs.id}"></option>
                         </select>
-                    </d>
-                </div>
-                <div>
-                    <label>The current authors are:</label>
-                    <div>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>The current authors are:</td>
+                    <td>
                         <span th:each="author, iterstat:${authors}">
                             <span th:text="${author.getName()}"></span>
+                            <br/>
                         </span>
-                    </div>
-                </div>
-                <div>
-                    <label>You can add the following ones too! (Can add only one person at a time)</label>
-                    <div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>You can add the following ones too! (Can add only one person at a time)</td>
+                    <td>
                         <select name = "authorId">
                             <option value= 0><span text="No one"/></option>
                             <span th:each="author, iterstat: ${restOfTheAuthors}">
                                 <option th:value="${author.id}"><span th:text="${author.name}"/></option>
                             </span>
                         </select>
-                    </div>
-                </div>
-                <div>
-                    <label>All set?</label>
-                    <input type="submit" value="Update this book"/>
-                </div>
-            </fieldset>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right">All set?</td>
+                    <td style="text-align: left"><input type="submit" value="Update this book"/></td>
+
+                </tr>
+            </table>
         </form>
     </div>
 </div>
