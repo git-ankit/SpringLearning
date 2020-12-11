@@ -20,45 +20,49 @@
 
         <h1>Add a book</h1>
 
-        <form th:action="@{/Admin/BookOrIssue/NewBook/}" method="post" enctype="multipart/form-data" class="w3-table-all w3-hoverable" >
-            <fieldset>
-                <div>
-                    <label>ISBN</label>
-                    <div>
-                        <input type="text" name="isbn"/>
-                    </div>
-                </div>
-                <div>
-                    <label>Date of creation</label>
-                    <div>
-                        <input type="date" name="dateOfCreation"/>
-                    </div>
-                </div>
-                <div>
-                    <label>Date of publication</label>
-                    <div>
-                        <input type="date" name="dateOfPublication"/>
-                    </div>
-                </div>
-                <div>
-                    <label>Edition number</label>
-                    <div>
-                        <input type="number" name="editionNo"/>
-                    </div>
-                </div>
-                <div>
-                    <label>Publication</label>
-                    <div>
+        <form th:action="@{/Admin/BookOrIssue/NewBook/}" method="post" enctype="multipart/form-data"  >
+            <table class="w3-table-all w3-hoverable" >
+                <tr>
+                    <td>ISBN</td>
+                    <td>
+                        <input type="text" name="isbn" required = required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Date of creation</td>
+                    <td>
+                        <input type="date" name="dateOfCreation" required = required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Date of publication</td>
+                    <td>
+                        <input type="date" name="dateOfPublication" required = required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Edition number</td>
+                    <td>
+                        <input type="number" name="editionNo" required = required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Publication</td>
+                    <td>
                         <select name = "publicationId">
                             <option th:each="publication,iterStat : ${publications}" th:text="${publication.getTitle()}" th:value="${publication.getId()}"></option>
                         </select>
-                    </div>
-                </div>
-                <div>
-                    <label>All set?</label>
-                    <input type="submit" value="Add this book"/>
-                </div>
-            </fieldset>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">
+                        All set?
+                    </td>
+                    <td style="text-align: left">
+                        <input type="submit" value="Add this book"/>
+                    </td>
+                </tr>
+            </table>
         </form>
     </div>
 </div>
